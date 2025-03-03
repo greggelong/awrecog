@@ -13,7 +13,7 @@ function setup() {
   cnv = createCanvas(640, 480);
   let cx = (windowWidth - cnv.width) / 2;
   let cy = (windowHeight - cnv.height) / 2;
-  cnv.position(cx, xy);
+  cnv.position(cx, cy);
 
   // Create the video and hide it
   video = createCapture(VIDEO);
