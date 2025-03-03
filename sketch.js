@@ -2,6 +2,7 @@ let video;
 let bodyPose;
 let poses = [];
 let connections;
+let cnv;
 
 function preload() {
   // Load the bodyPose model
@@ -9,7 +10,10 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(640, 480);
+  cnv = createCanvas(640, 480);
+  let cx = (windowWidth - cnv.width) / 2;
+  let cy = (windowHeight - cnv.height) / 2;
+  cnv.position(cx, xy);
 
   // Create the video and hide it
   video = createCapture(VIDEO);
@@ -50,24 +54,24 @@ function draw() {
   // Draw all the tracked landmark points and place a label around the face
   for (let i = 0; i < poses.length; i++) {
     let pose = poses[i].keypoints;
-    let nose = pose.find(k => k.name === 'nose');
-    let leftEye = pose.find(k => k.name === 'left_eye');
-    let rightEye = pose.find(k => k.name === 'right_eye');
-    
+    let nose = pose.find((k) => k.name === "nose");
+    let leftEye = pose.find((k) => k.name === "left_eye");
+    let rightEye = pose.find((k) => k.name === "right_eye");
+
     if (nose && leftEye && rightEye) {
       let x = (leftEye.x + rightEye.x) / 2;
       let y = (leftEye.y + rightEye.y) / 2;
       let w = dist(leftEye.x, leftEye.y, rightEye.x, rightEye.y) * 3;
       let h = w * 1.2;
-      
+
       fill(255, 0, 0);
       noStroke();
       textSize(36);
       textAlign(CENTER, CENTER);
       text("艺术工人", x, y - h / 2 - 15);
-      
+
       noFill();
-      stroke(0,255, 0);
+      stroke(0, 255, 0);
       strokeWeight(2);
       rect(x - w / 2, y - h / 2, w, h);
     }
