@@ -6,7 +6,7 @@ let cnv;
 
 function preload() {
   // Load the bodyPose model
-  bodyPose = ml5.bodyPose();
+  bodyPose = ml5.bodyPose({ flipped: true });
 }
 
 function setup() {
@@ -16,7 +16,7 @@ function setup() {
   cnv.position(cx, cy);
 
   // Create the video and hide it
-  video = createCapture(VIDEO);
+  video = createCapture(VIDEO, { flipped: true });
   video.size(640, 480);
   video.hide();
 
